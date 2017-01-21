@@ -8,7 +8,7 @@
     "host": "plesk.cubis-helios.com",
     "port": "587",
     "user": "a.soyer@cubis-helios.com",
-    "pass": "A123xEMA!",
+    "pass": "pass",
     "sec": "tls"
   },
   "website": {

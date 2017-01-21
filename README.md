@@ -42,22 +42,29 @@ php -S localhost:8080 -t public -ddisplay_errors=1
 
 The application only supports.
 
+### Looking for articles using pagination 
 
-* Looking for articles using pagination 
+```
+/api/get/articles/0
+```
 
-```/api/get/articles/0```
+### Looking for articles using text in title 
 
-* Looking for articles using text in title 
+```
+/api/get/articles/find/text
+```
 
-```/api/get/articles/find/text```
+### Getting the number of articles 
 
-* Getting the number of articles 
+```
+/api/get/articles/count
+```
 
-```/api/get/articles/count```
+### Send an email with your credential 
 
-* Send an email with your credential 
-
-```/api/post/email```
+```
+/api/post/email
+```
 
 ## Built With
 
