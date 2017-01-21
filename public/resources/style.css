@@ -1,0 +1,195 @@
+
+* {
+    transition: 0.5s all;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    line-height: 1.15;
+}
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    width: 100%;
+    background-image: linear-gradient(-60deg,#5641db 0,#1f86ef 100%);
+    text-align: center;
+}
+
+header span.subtitle {
+    font-size: 3rem;
+}
+
+header h1 {
+    color: white;
+    padding: 5vh 0px 0vh;
+    font-size: 6rem;
+    font-weight: lighter;
+}
+
+header p {
+    color: white;
+    font-size: 2rem;
+    padding-bottom: 2vh;
+}
+
+header a {
+    display: block;
+    color: white;
+    font-size: 3rem;
+    padding-bottom: 2vh;
+}
+
+header a:hover {
+    color: black;
+}
+
+div.container {
+    /*margin-bottom: 200px;*/
+}
+
+h4 {
+    margin: 20px 0px;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+}
+
+section.authentification {
+    padding: 30px 0px;
+}
+
+@media all and (min-width: 100.0rem) {
+    div.container {
+        max-width: 80%;
+    }
+    section.container {
+        max-width: 30%;
+        margin: 2% 1.5%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    section.authentification {
+        display: block;
+        width: 30%;
+        margin: auto;
+    }
+
+    footer {
+        position: initial;
+    }
+}
+
+h3 {
+    text-align: center;
+    padding: 2rem 0px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dedede;
+}
+
+h4 {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f4f5f6;
+    margin-top: 50px;
+}
+
+textarea {
+    min-height: 15rem;
+}
+
+pre.url {
+    width: 30%;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.full {
+    padding: 0 2.0rem;
+    width: 97%;
+    margin: 2% 1.5%;
+}
+
+.box {
+    background: #dedede;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.icon-ko,
+.icon-ok {
+    margin-right: 1rem;
+}
+
+.icon-ko {
+    color: #E08283;
+}
+
+.icon-ok {
+    color: #4DB6AC;
+}
+
+
+p.config-test > i {
+    font-size: 1.5rem;
+    vertical-align: middle;
+}
+p.config-test {
+    margin-bottom: 5rem;
+    text-align: center;
+}
+
+p.error {
+    background-color: #E08283;
+    text-align: center;
+    display: block;
+    margin: 50px auto;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+}
+
+.center {
+    text-align: center;
+}
+
+
+
+img.logo {
+    width: 80px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: #283646;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding:  15px 0px;
+}
+
+
+footer form,
+footer input {
+    margin: auto;
+}
+footer p {
+    margin: 0px;
+}
+
+input.btn-android {
+    color: #8bc34a;
+    background: transparent;
+    border: 1px solid #8bc34a;
+}

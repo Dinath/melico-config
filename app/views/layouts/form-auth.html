@@ -1,0 +1,34 @@
+<section class="authentification">
+    {% if p.noauth %}
+    <p>C'est la première fois que vous lancez le logiciel, vous devez vous créer un <strong>nom d'utilisateur</strong> et un
+        <strong>mot de passe</strong>.</p>
+    <form action="/signin" method="POST">
+        <div class="form-group">
+            <label for="auth-user">Nom d'utilisateur</label>
+            <input type="text" required="true" placeholder="..." name="auth-user" class="form-control" id="auth-user" />
+        </div>
+        <div class="form-group">
+            <label for="auth-pass">Mot de passe</label>
+            <input type="password" required="true" placeholder="privilégiez un mot de passe fort" name="auth-pass" class="form-control" id="auth-pass" />
+            <input type="password" required="true" placeholder="retapez le même mot de passe ici" name="auth-pass2" class="form-control" id="auth-pass2" />
+        </div>
+        <div class="center">
+            <input type="submit" class="" value="Créer l'utilisateur" />
+        </div>
+    </form>
+    {% else %}
+    <form action="/" method="POST">
+        <div class="form-group">
+            <label for="auth-user">Nom d'utilisateur</label>
+            <input type="text" required="true" placeholder="root" name="auth-user" class="form-control" id="auth-user" />
+        </div>
+        <div class="form-group">
+            <label for="auth-pass">Mot de passe</label>
+            <input type="password" required="true" placeholder="root" name="auth-pass" class="form-control" id="auth-pass" />
+        </div>
+        <div class="center">
+            <input type="submit" class="" value="Envoyer" />
+        </div>
+    </form>
+</section>
+{% endif %}
