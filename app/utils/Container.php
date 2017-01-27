@@ -51,8 +51,7 @@ $container['notFoundHandler'] = function ($c)
 */
 $container['engine'] = function() 
 {
-    return new Joomla;
-//    return new WordPress;
+    return new Resources::$json['database']['engine'];
 };
 
 /**
@@ -83,3 +82,14 @@ $container['pdo'] = function()
         print_r("Cannot connect to database.");
     }
 };
+
+function engine() {
+    switch (Resources::$json['database']['engine']) {
+        case 'WordPress':
+            return new WordPress;
+        case 'Joomla':
+            return new Joomla;
+        default:
+            return NULL;
+    }
+}

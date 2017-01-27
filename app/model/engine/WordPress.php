@@ -37,9 +37,11 @@ class WordPress extends Template
                 AS :db_obj_content,
               post_date 
                 AS :db_obj_date
-            FROM ' . Resources::$json['database']['table_prefix'] . 'posts' . '.
-            WHERE post_type = "post" AND post_status = "publish" 
-            ORDER BY post_date DESC LIMIT :pagination,' . Resources::DATABASE_PAGINATION
+            FROM ' . Resources::$json['database']['table_prefix'] . 'posts' . ' 
+            WHERE `post_type` = "post" 
+                AND `post_status` = "publish" 
+            ORDER BY `post_date` DESC 
+            LIMIT :pagination,' . Resources::DATABASE_PAGINATION
         );
 
         return $statement;
@@ -62,11 +64,10 @@ class WordPress extends Template
               post_date 
                 AS :db_obj_date
             FROM " . Resources::$json['database']['table_prefix'] . 'posts' . " 
-                AS post 
-            WHERE post_type = 'post'
-                AND post_status = 'publish' 
-                AND post_title LIKE :text 
-            ORDER BY post_date DESC"
+            WHERE `post_type` = 'post'
+                AND `post_status` = 'publish' 
+                AND `post_title` LIKE :text 
+            ORDER BY `post_date` DESC"
         );
 
         return $statement;
@@ -79,7 +80,8 @@ class WordPress extends Template
         (
             'SELECT COUNT(*) as :db_obj_count 
               FROM ' . Resources::$json['database']['table_prefix'] . 'posts' . ' 
-              WHERE post_type = "post" AND post_status = "publish"'
+              WHERE `post_type` = "post" 
+                AND post_status = "publish"'
         );
 
         return $statement;

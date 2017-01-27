@@ -146,6 +146,11 @@ $app->post('/config', function ($request, $response)
         Resources::$json = $json;
         Resources::updateJSON();
 
+        $container['engine'] = function()
+        {
+            return new Resources::$json['database']['engine'];
+        };
+
         // testing all block
         return $this->view->render($response, 'index.html',
             [
@@ -214,7 +219,8 @@ $app->get("/api/get/website", function ($request, $response) {
 $app->get("/api/get/articles/find/{text}", function (\Slim\Http\Request $request, \Slim\Http\Response $response, $args) {
     $text = $pagination = $args['text'];
 
-    if (strlen($text) < Resources::$json['ws']['min-param-length']) {
+    if (strlen($text) < Resources::$json['ws']['min-param-length'])
+    {
         return $response->withStatus(500)->write(
             ("Your query must contains at least " . Resources::$json['ws']['min-param-length'] . ' caracters.')
         );
