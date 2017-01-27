@@ -23,7 +23,7 @@ class ControllerEmail
         $mail = new PHPMailer;
 
         // config
-        $mail->SMTPDebug = Resources::DEBUG ? 3 : 0;
+//        $mail->SMTPDebug = Resources::DEBUG ? 3 : 0;
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 

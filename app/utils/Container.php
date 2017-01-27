@@ -1,5 +1,6 @@
 <?php
 
+
 $container = $app->getContainer();
 
 /**
@@ -23,8 +24,8 @@ $container['view'] = function ($container)
     ]);
 
     // add twig extensions...
-    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+    $base = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $base));
     
     return $view;
 };
@@ -50,7 +51,8 @@ $container['notFoundHandler'] = function ($c)
 */
 $container['engine'] = function() 
 {
-    return new WordPress;
+    return new Joomla;
+//    return new WordPress;
 };
 
 /**
@@ -62,7 +64,6 @@ $container['engine'] = function()
  */
 $container['pdo'] = function() 
 {
-
     try 
     {
         $pdo = new PDO('mysql:dbname=' . 
@@ -75,17 +76,10 @@ $container['pdo'] = function()
         {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
-
         return $pdo;
     }
     catch (PDOException $ex) 
     {
-        print_r($ex);
-        // die("Cannot connect to database. Please verify that the deamon is started and that login informations are correct.");
+        print_r("Cannot connect to database.");
     }
-
 };
-
-// $container['db'] = function($container) {
-//   return new ControllerDB($container->pdo);
-// };

@@ -3,15 +3,20 @@
 require "../app/controllers/ControllerTest.php";
 
 
+require '../app/model/engine/WordPress.php';
+require '../app/model/engine/Joomla.php';
+
 /**
  * Redirect to the home page
  */
 $app->get('/', function ($request, $response) {
     return $this->view->render($response, 'index.html',
-        ["p" =>
-            empty(Resources::$json["auth"]["user"]) ||
-            empty(Resources::$json["auth"]["pass"]) ?
-                array('noauth' => 'true') : ''
+        [
+            Resources::WS_TWIG_RETURN_TYPE_STATUS =>
+                empty(Resources::$json["auth"]["user"]) ||
+                empty(Resources::$json["auth"]["pass"]) ?
+                    array('register' => 'true') :
+                    array('' => '')
         ]);
 });
 
@@ -20,14 +25,24 @@ $app->get('/', function ($request, $response) {
  * Authentification provider
  */
 $app->post('/', function ($request, $response) {
-
-
     // auth success
     if (Resources::auth($request->getParams()['auth-user'], $request->getParams()['auth-pass'])) {
-        return $this->view->render($response, 'index.html', ["p" => Resources::$json]);
+        return $this->view->render($response, 'index.html',
+            [
+                Resources::WS_TWIG_RETURN_TYPE_POST => Resources::$json
+            ]);
     } // auth failed
     else {
-        return $this->view->render($response, 'index.html', ["s" => array("message" => "Vos identifiants sont incorrects.", "class" => "error")]);
+        return $this->view->render($response, 'index.html',
+            [
+                Resources::WS_TWIG_RETURN_TYPE_STATUS =>
+                    array(
+                        Resources::WS_TWIG_RETURN_TYPE_STATUS_MESSAGE
+                        => "Vos identifiants sont incorrects.",
+                        Resources::WS_TWIG_RETURN_TYPE_STATUS_CLASS
+                        => "error"
+                    )
+            ]);
     }
 });
 
@@ -64,7 +79,17 @@ $app->post('/signin', function ($request, $response) {
 
     // check if for quotes
     if (strpos($user, '"') !== false || strpos($pass, '"') !== false) {
-        return $this->view->render($response, 'index.html', ["s" => array("message" => 'Vos informations ne doivent pas contenir de guillements (").', "class" => "error")]);
+        return $this->view->render($response, 'index.html',
+            [
+                Resources::WS_TWIG_RETURN_TYPE_STATUS
+                => array(
+                    Resources::WS_TWIG_RETURN_TYPE_STATUS_MESSAGE
+                    => 'Vos informations ne doivent pas contenir de guillements (").',
+                    Resources::WS_TWIG_RETURN_TYPE_STATUS_CLASS
+                    => "error"
+                )
+            ]
+        );
     }
     // avoiding password reset
     if (empty($user) && empty($pass)) {
@@ -79,11 +104,29 @@ $app->post('/signin', function ($request, $response) {
             Resources::updateJSON();
         } // passwords provided are not equals
         else {
-            return $this->view->render($response, 'index.html', ["s" => array("message" => "Vos deux mots de passes doivent être identiques.", "class" => "error")]);
+            return $this->view->render($response, 'index.html',
+                [
+                    Resources::WS_TWIG_RETURN_TYPE_STATUS
+                    => array(
+                        Resources::WS_TWIG_RETURN_TYPE_STATUS_MESSAGE
+                        => "Vos deux mots de passes doivent être identiques.",
+                        Resources::WS_TWIG_RETURN_TYPE_STATUS_CLASS
+                        => "error"
+                    )
+                ]
+            );
         }
 
         // sucessfully registration
-        return $this->view->render($response, 'index.html', ["s" => array('auth' => 'success')]);
+        return $this->view->render($response, 'index.html',
+            [
+                Resources::WS_TWIG_RETURN_TYPE_STATUS
+                => array(
+                    'auth'
+                    => 'success'
+                )
+            ]
+        );
     }
 }
 
@@ -93,10 +136,11 @@ $app->post('/signin', function ($request, $response) {
 /**
  *  POST the new configuration
  */
-$app->post('/config', function ($request, $response) {
-
+$app->post('/config', function ($request, $response)
+{
     // authentification success
-    if (Resources::auth($request->getParams()['auth']['user'], $request->getParams()['auth']['pass'])) {
+    if (Resources::auth($request->getParams()['auth']['user'], $request->getParams()['auth']['pass']))
+    {
         // merging json file
         $json = array_merge(Resources::$json, $request->getParams());
         Resources::$json = $json;
@@ -105,15 +149,21 @@ $app->post('/config', function ($request, $response) {
         // testing all block
         return $this->view->render($response, 'index.html',
             [
-                "p" => Resources::$json,
-                "t" => ControllerTest::all($this->pdo, Resources::$json['email'], Resources::$json['website'])
-            ]);
+                Resources::WS_TWIG_RETURN_TYPE_POST
+                => Resources::$json,
+                Resources::WS_TWIG_RETURN_TYPE_TEST
+                => ControllerTest::all
+                (
+                    $this->pdo,
+                    Resources::$json['email'],
+                    Resources::$json['website']
+                )
+            ]
+        );
     }
     // if this does not match, simply render the index auth form
     return $this->view->render($response, 'index.html');
-}
-
-);
+});
 
 
 /**
@@ -133,6 +183,8 @@ $app->post('/api/post/email', function ($request, $response) {
     // email controller loading
     $controllerEmail = new ControllerEmail();
     $controllerEmail->init($email);
+
+    // email sender
     $sent = $controllerEmail->send();
 
     // the email is gone
@@ -142,16 +194,15 @@ $app->post('/api/post/email', function ($request, $response) {
 
     // there were an error, display it on front
     return $response->withStatus(500)->write(json_encode($sent));
-}
-
-);
+});
 
 
 /**
  *  get the website informations
  */
 $app->get("/api/get/website", function ($request, $response) {
-    return $response->withStatus(200)->write(json_encode(
+    return $response->withStatus(200)->write(json_encode
+    (
         Resources::$json['website']
     ));
 });
@@ -164,7 +215,9 @@ $app->get("/api/get/articles/find/{text}", function (\Slim\Http\Request $request
     $text = $pagination = $args['text'];
 
     if (strlen($text) < Resources::$json['ws']['min-param-length']) {
-        return $response->withStatus(500)->write(("Your query must contains at least " . Resources::$json['ws']['min-param-length'] . ' caracters.'));
+        return $response->withStatus(500)->write(
+            ("Your query must contains at least " . Resources::$json['ws']['min-param-length'] . ' caracters.')
+        );
     }
     $elements = $this->engine->findArticlesByContentInTitle($this->pdo, $text);
 
@@ -192,7 +245,7 @@ $app->get("/api/get/articles/{pagination}", function (\Slim\Http\Request $reques
 
     // checking for bad param
     if (!is_numeric($pagination)) {
-        return $response->withStatus(500)->write(("Not Allowed."));
+        return $response->withStatus(500)->write(("Not Allowed. Use a numeric value."));
     }
     if ($pagination % 10 != 0) {
         return $response->withStatus(500)->write(("Not Allowed. Use a 10 multiple."));
@@ -202,7 +255,7 @@ $app->get("/api/get/articles/{pagination}", function (\Slim\Http\Request $reques
 
     // concatenate website url from resources in the query
     for ($i = 0; $i < count($elements); $i++) {
-        $elements[$i]['url'] = Resources::$json['website']['url'] . "/" . $elements[$i]['url'];
+        $elements[$i]['url'] = Resources::$json['website']['url'] . "/" . $this->engine->websitePrependURL . $elements[$i]['url'];
     }
     return $response->withStatus(200)->write(json_encode($elements));
 }

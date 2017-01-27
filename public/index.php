@@ -1,10 +1,10 @@
 <?php
 
+set_include_path(dirname(__FILE__)."/../");
+
 require '../vendor/autoload.php';
 require '../app/controllers/ControllerEmail.php';
 require '../app/utils/Resources.php';
-require '../app/model/engine/WordPress.php';
-
 
 /**
  * Loading the json datas
@@ -14,10 +14,12 @@ Resources::init();
 /**
  * Display errors if we are in debug mode
  */
-$app = new \Slim\App([
-    'settings' => [
-        'displayErrorDetails' => Resources::DEBUG
-    ]
+$app = new \Slim\App
+([
+    'settings' =>
+        [
+            'displayErrorDetails' => Resources::DEBUG
+        ]
 ]);
 
 /**

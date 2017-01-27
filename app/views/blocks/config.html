@@ -1,25 +1,32 @@
+
+{% if not test.website.success or not test.db.success %}
 <div class="full">
     <p>
         Voici le panneau de configuration de <strong>meli.co</strong>.
     </p>
-    <p>Vérifiez à avoir tous les paramètres ci-dessous corrects. Une fois la configuration validée, utilisez le bouton pour
-        générer votre application.
+    <p>Vérifiez à avoir tous les paramètres ci-dessous corrects. Une fois la configuration validée, le bouton pour <strong>générer votre application apparaitra</strong>.
     </p>
 </div>
+{% endif %}
+
+{% if test.website.success and test.db.success %}
+<div class="center full">
+    <p>Télécharger votre application Android !</p>
+    <form action="/android" method="POST">
+        {% include 'layouts/form-auth-hidden.html' %}
+        <button type="submit" class="button btn-android">
+            <span><img src="/resources/img/android.svg" /> Générer mon application Android</span>
+        </button>
+    </form>
+</div>
+{% endif %}
+
 <form action="/config" method="POST">
     {% include 'layouts/form-auth-hidden.html' %} 
-    {% include 'layouts/form-global.html' %} 
+    {% include 'layouts/form-website.html' %}
     {% include 'layouts/form-email.html' %} 
     {% include 'layouts/form-db.html' %}
     <div class="center">
         <input type="submit" class="button" value="Enregistrer & tester la configuration" />
     </div>
 </form>
-{% if t.website.success and t.db.success %}
-<footer class="center">
-    <form action="/android" method="POST">
-        {% include 'layouts/form-auth-hidden.html' %} 
-        <input type="submit" class="button btn-android" value="Générer mon application Android" />
-    </form>
-</footer>
-{% endif %}

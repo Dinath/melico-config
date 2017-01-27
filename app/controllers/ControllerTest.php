@@ -10,44 +10,56 @@ class ControllerTest
 
     /**
      * @param $pdo
+     *  The pdo params from view
      * @param $email
+     *  The email params from view
      * @param $website
+     *  The website params from view
      * @return array
+     *  An array of response for twig
      */
     public static function all($pdo, $email, $website)
     {
         return array(
             'db' => ControllerTest::database($pdo),
             'email' => ControllerTest::email($email),
-            'website' => ControllerTest::website($website)
+            'website' => ControllerTest::website($website),
         );
     }
 
     /**
      * @param $pdo
+     *  The PDO access to the database
      * @return array
+     *  A response for twig, see Resources::response_view
      */
     private static function database($pdo)
     {
-
-        try {
+        try
+        {
             new PDO('mysql:dbname=' .
                 Resources::$json['database']['name'] . ';host=' .
                 Resources::$json['database']['host'] . ';charset=UTF8;',
                 Resources::$json['database']['user'],
                 Resources::$json['database']['pass']
             );
-        } catch (PDOException $ex) {
-            return (
-            array('message' => "Impossible de se connecter à la base de données. " . $ex)
+        }
+        catch (PDOException $ex)
+        {
+            return Resources::response_view(
+                Resources::WS_TWIG_RETURN_TYPE_TEST_ERROR,
+                "Impossible de se connecter à la base de données."
             );
         }
 
-        return array('success' => true);
+        return Resources::response_view();
     }
 
     /**
+     * Test the email sending
+     *
      * @return array
+     *  A response for twig, see Resources::response_view
      */
     private static function email()
     {
@@ -62,38 +74,44 @@ class ControllerTest
 
         $controllerEmail->init($email);
 
-        if ($controllerEmail->send() === '') {
-            return array('success' => true);
-        } else {
-            return (
-            array('message' => "Impossible d'envoyer l'email de test.")
-            );
+        // send the email and check if it is sent
+        if ($controllerEmail->send() === '')
+        {
+            return Resources::response_view();
+        }
+        else
+        {
+            return Resources::response_view(Resources::WS_TWIG_RETURN_TYPE_TEST_ERROR, "Impossible d'envoyer l'email de test.");
         }
     }
 
     /**
      * @param $website
+     *  Test the website to be ok for
+     *      URL
      * @return array
+     *  A response for twig, see Resources::response_view
      */
     private static function website($website)
     {
-        if (ControllerTest::__urlExists($website['url'])) {
-            if (strpos($website, '"') === true) {
-                return (
-                array('message' => "L'URL ne doit pas contenir de guillements (\").")
-                );
+        if (ControllerTest::__urlExists($website['url']))
+        {
+            if (strpos($website['url'], '"') === true)
+            {
+                return Resources::response_view(Resources::WS_TWIG_RETURN_TYPE_TEST_ERROR, "L'URL ne doit pas contenir de guillements (\").");
             }
-            return array('success' => true);
-        } else {
-            return (
-            array('message' => "L'URL renseignée n'est pas bonne.")
-            );
+            return Resources::response_view();
         }
+
+        return Resources::response_view(Resources::WS_TWIG_RETURN_TYPE_TEST_ERROR, "L'URL renseignée n'est pas bonne.");
     }
 
     /**
      * @param null $url
+     *  The url to check, by default it is NULL
      * @return bool
+     *  true if the address is ok
+     *  false if we cannot reach it
      */
     private static function __urlExists($url = NULL)
     {

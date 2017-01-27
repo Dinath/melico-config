@@ -1,7 +1,4 @@
 
-* {
-    transition: 0.5s all;
-}
 
 html {
     box-sizing: border-box;
@@ -16,8 +13,9 @@ body {
 }
 
 header {
+    padding: 50px 0px;
     width: 100%;
-    background-image: linear-gradient(-60deg,#5641db 0,#1f86ef 100%);
+    background-color: #2a77ea;
     text-align: center;
 }
 
@@ -27,15 +25,14 @@ header span.subtitle {
 
 header h1 {
     color: white;
-    padding: 5vh 0px 0vh;
     font-size: 6rem;
     font-weight: lighter;
 }
 
 header p {
+    margin: 0px;
     color: white;
     font-size: 2rem;
-    padding-bottom: 2vh;
 }
 
 header a {
@@ -53,9 +50,6 @@ div.container {
     /*margin-bottom: 200px;*/
 }
 
-h4 {
-    margin: 20px 0px;
-}
 
 input[type="submit"] {
     margin-top: 20px;
@@ -86,18 +80,41 @@ section.authentification {
     }
 }
 
+input[type="submit"] {
+    padding: 10px 15px;
+    height: auto;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    color: #606c76;
+}
+
+
+
 h3 {
+    /*border: 1px solid #2a77ea;*/
+    /*box-shadow: 0px 0px 10px 0px #e1e1e1;*/
+    color: #606c76;
+    background-color: white;
+    font-size: 3rem;
     text-align: center;
-    padding: 2rem 0px;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #dedede;
+    /*padding: 1.5rem 1rem;*/
 }
 
 h4 {
+    margin: 20px 0px;
     text-align: center;
     padding-bottom: 20px;
-    border-bottom: 1px solid #f4f5f6;
     margin-top: 50px;
+}
+
+label {
+    color: black;
+    font-size: 1.7rem;
+    font-weight: 500;
 }
 
 textarea {
@@ -124,17 +141,20 @@ pre.url {
     text-transform: uppercase;
 }
 
-.icon-ko,
-.icon-ok {
-    margin-right: 1rem;
+span.ko,
+span.ok {
+    text-align: center;
+    display: block;
+    font-size: 1.5rem;
 }
 
-.icon-ko {
+
+span.ko {
     color: #E08283;
 }
 
-.icon-ok {
-    color: #4DB6AC;
+span.ok {
+    color: #8bc34a;
 }
 
 
@@ -168,11 +188,20 @@ img.logo {
     width: 80px;
 }
 
+
+.authentification input[type="submit"]:hover {
+    color: #606c76;
+    border-color: #606c76;
+}
+
+.authentification input[type="submit"] {
+    background: transparent;
+    color: #2a77ea;
+    width: 100%;
+    padding: 2px 0px;
+}
+
 footer {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    background-color: #283646;
     text-align: center;
     width: 100%;
     display: block;
@@ -188,7 +217,14 @@ footer p {
     margin: 0px;
 }
 
-input.btn-android {
+button.btn-android img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+button.btn-android {
+    padding: 10px 15px;
+    height: auto;
     color: #8bc34a;
     background: transparent;
     border: 1px solid #8bc34a;

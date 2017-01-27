@@ -1,21 +1,21 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" lazyload />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" lazyload />
     <link rel="stylesheet" href="{{ base_url() }}/resources/milligram.min.css" lazyload />
     <link rel="stylesheet" href="{{ base_url() }}/resources/style.css" lazyload />
 </head>
 
 <body>
     {% include 'globals/header.html' %}
+
     <div class="container">
-        {% if p.auth %} 
-            {% include 'blocks/config.html' %} 
-        {% else %} 
+        {% if post.auth %}
+            {% include 'blocks/config.html' %}
+        {% else %}
             {% include 'blocks/auth.html' %} 
         {% endif %}
     </div>
+
     {% include 'globals/footer.html' %}
 </body>
 

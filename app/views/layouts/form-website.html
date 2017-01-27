@@ -1,0 +1,33 @@
+<section class="container">
+
+    <h3>Site internet</h3>
+
+    <p class="config-test">
+        {% if test.website.success %}
+        <span class="ok">Votre configuration est fonctionnelle.</span>
+        {% elseif test.website.error %}
+        <span class="ko">{{ test.website.error }}</span>
+        {% endif %} 
+    </p>
+
+    <div class="form-group">
+        <label for="global-site">Nom du site</label>
+        <input type="text" required="true" placeholder="..." value="{{ post.website.name }}" name="website[name]" class="form-control" id="global-name" />
+    </div>
+
+    <div class="form-group">
+        <label for="global-icon">Icone du site</label>
+        <input type="text" required="true" placeholder="..." value="{{ post.website.icon }}" name="website[icon]" class="form-control" id="global-icon" />
+    </div>
+
+    <div class="form-group">
+        <label for="global-url">Adresse du site</label>
+        <input type="text" required="true" placeholder="http://www.domaine.fr" value="{{ post.website.url }}" name="website[url]'" class="form-control" id="global-url" />
+    </div>
+
+    <div class="form-group">
+        <label for="global-about">A propos du blog ?</label>
+        <textarea placeholder="Notre site internet parle de..." required="true" value="{{ post.website.content }}" name="website[about]" class="form-control" id="global-about">{{ post.website.about }}</textarea>
+    </div>
+
+</section>

@@ -1,7 +1,6 @@
 <section class="authentification">
-    {% if p.noauth %}
-    <p>C'est la première fois que vous lancez le logiciel, vous devez vous créer un <strong>nom d'utilisateur</strong> et un
-        <strong>mot de passe</strong>.</p>
+    {% if status.register %}
+    <p>C'est la première fois que vous lancez le logiciel, vous devez vous créer un <strong>nom d'utilisateur</strong> et un <strong>mot de passe</strong>.</p>
     <form action="/signin" method="POST">
         <div class="form-group">
             <label for="auth-user">Nom d'utilisateur</label>
@@ -20,11 +19,11 @@
     <form action="/" method="POST">
         <div class="form-group">
             <label for="auth-user">Nom d'utilisateur</label>
-            <input type="text" required="true" placeholder="root" name="auth-user" class="form-control" id="auth-user" />
+            <input type="text" required="true" placeholder="utilisateur" name="auth-user" class="form-control" id="auth-user" />
         </div>
         <div class="form-group">
             <label for="auth-pass">Mot de passe</label>
-            <input type="password" required="true" placeholder="root" name="auth-pass" class="form-control" id="auth-pass" />
+            <input type="password" required="true" placeholder="mot de passe" name="auth-pass" class="form-control" id="auth-pass" />
         </div>
         <div class="center">
             <input type="submit" class="" value="Envoyer" />

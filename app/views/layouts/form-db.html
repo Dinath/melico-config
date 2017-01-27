@@ -3,36 +3,36 @@
     <h3>Base de données</h3>
 
     <p class="config-test">
-        {% if t.db.success %}
-            <i class="material-icons icon-ok">thumb_up</i> Votre configuration est fonctionnelle.
-        {% elseif t.db.message %}
-            <i class="material-icons icon-ko">thumb_down</i> {{ t.db.message }}
+        {% if test.db.success %}
+        <span class="ok">Votre configuration est fonctionnelle.</span>
+        {% elseif test.db.error %}
+        <span class="ko">{{ test.db.error }}</span>
         {% endif %} 
     </p>
 
     <div class="form-group">
         <label for="db-host">Hôte</label>
-        <input type="text" required="true" value="{{ p.database.host }}" placeholder="localhost" name="database[host]" class="form-control"
+        <input type="text" required="true" value="{{ post.database.host }}" placeholder="localhost" name="database[host]" class="form-control"
             id="db-host" value="localhost" />
     </div>
     <div class="form-group">
         <label for="db-name">Nom de la base</label>
-        <input type="text" required="true" value="{{ p.database.name }}" placeholder="..." name="database[name]" class="form-control"
+        <input type="text" required="true" value="{{ post.database.name }}" placeholder="..." name="database[name]" class="form-control"
             id="db-name" />
     </div>
     <div class="form-group">
         <label for="db-user">Utilisateur</label>
-        <input type="text" required="true" value="{{ p.database.user }}" placeholder="root" name="database[user]" class="form-control"
+        <input type="text" required="true" value="{{ post.database.user }}" placeholder="root" name="database[user]" class="form-control"
             id="db-user" />
     </div>
     <div class="form-group">
         <label for="db-passwd">Mot de passe</label>
-        <input type="password" required="true" value="{{ p.database.pass }}" placeholder="root" name="database[pass]" class="form-control"
+        <input type="password" required="true" value="{{ post.database.pass }}" placeholder="root" name="database[pass]" class="form-control"
             id="db-passwd" />
     </div>
     <div class="form-group">
         <label for="db-prefix">Prefix des tables</label>
-        <input type="text" required="true" value="{{ p.database.table_prefix }}" placeholder="wp_ ?" name="database[table_prefix]"
+        <input type="text" required="true" value="{{ post.database.table_prefix }}" placeholder="wp_ ?" name="database[table_prefix]"
             class="form-control" id="db-prefix" />
     </div>
 </section>
