@@ -8,21 +8,21 @@ The user justs need to download the zip from [original website](https://meli.co)
 
 Supported engines are currently:
 
-* Wordpress
-* ...
+* [Wordpress](https://wordpress.org)
+* [Joomla](https://joomla.org)
 
 Feel free to provide a pull request if you want to add yours.
 
 ### Prerequisites
 
-Just clone the project, no need to ```composer install ...```.
+Just clone the project, no need to ```composer install ...```. Modules are already in there.
 
 ### Installing / Deployment
 
-Be sure your server are enabled. 
+Be sure your servers are enabled. 
 
-**Web server**  can be *Apache*, *nginx*, whatever you want...
-**Database server** is MySQL / MariaDB.
+* **Web server**  can be *Apache*, *nginx*, whatever you want...
+* **Database server** is MySQL / MariaDB, maybe I will try to extends the ability of the app with other databases, but it is not planned for now.
 
 ```
 systemctl start httpd
@@ -31,27 +31,44 @@ systemctl start mariadb / mysql
 
 ## Running the tests
 
-If you want to test the application.
+If you want to test the application, in the project *launch the command*.
 
 ```
-cd ../melico-config
 php -S localhost:8080 -t public -ddisplay_errors=1
 ```
 
+Go to the **configuration web page**.
+
+```
+http://localhost:8080
+```
+
+Of course, you need to have a website with supported engines installed.
+
+## Contributing
+
+I will in the future **import in the application new engines** like Drupal, MediaWiki, Ghost... 
+
+But if you want to contribute to the project, **you can fork the project and import your own**.
+
+A class named ```Example.php``` in the ```engine/``` folder would help you. You can also see ```WordPress.php``` and ```Joomla.php``` which are the first engine classes made by the author.
+
 ## Important
 
-The application only supports.
+The application only supports these routes (for now).
 
 ### Looking for articles using pagination 
 
 ```
 /api/get/articles/0
+/api/get/articles/10
 ```
 
 ### Looking for articles using text in title 
 
 ```
-/api/get/articles/find/text
+/api/get/articles/find/linux
+/api/get/articles/find/alex
 ```
 
 ### Getting the number of articles 
@@ -68,20 +85,20 @@ The application only supports.
 
 ## Built With
 
-* [Composer](https://getcomposer.org/) which is provided within the project
+The application has been built only with PHP (including [TWIG](http://twig.sensiolabs.org/) for HTML template) for compatibility with CMS. No *JavaScript* needed.
 
-## Contributing
-
-You can help me to improve the web-service as well !
-
-But if you just want to implement your CMS, please use ```Example.php``` file in ```engine/``` folder.
+* [PHP 7.1.1](https://secure.php.net/) as programming language.
+* [Slim 3.5](https://www.slimframework.com/) for webservice.
+* [Composer](https://getcomposer.org/) for dependencies.
 
 ## Authors
 
 * **Alexandre Soyer** 
 
+Join me ?
+
 ## Acknowledgments
 
 This project is free, check out the french website.
 
-[https://meli.com](https://meli.co)
+The website is not online for now, I am actually building the new website in [Angular](https://angular.io).
