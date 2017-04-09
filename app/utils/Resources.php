@@ -110,6 +110,5 @@ class Resources
     /**
      * Website
      */
-    const WEBSITE_ANDROID_URL = 'http://localhost:4200/android';
-
+    const WEBSITE_ANDROID_URL = 'https://melico.fr/android-generation';
 }

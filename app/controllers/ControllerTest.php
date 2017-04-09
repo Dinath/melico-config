@@ -37,12 +37,29 @@ class ControllerTest
     {
         try
         {
-            new PDO('mysql:dbname=' .
+            $pdo = new PDO('mysql:dbname=' .
                 Resources::$json['database']['name'] . ';host=' .
                 Resources::$json['database']['host'] . ';charset=UTF8;',
                 Resources::$json['database']['user'],
                 Resources::$json['database']['pass']
             );
+
+            $engine = new Resources::$json['database']['engine'];
+
+            $countedArticles = $engine->countArticles($pdo);
+
+            // check if we succeed in the article's count retrieve       
+            // true if $countedArticles is an array
+            // false if it is a string (message of the exception) 
+            if (! is_array($countedArticles))
+            {
+                return Resources::response_view(
+                    Resources::WS_TWIG_RETURN_TYPE_TEST_ERROR,
+                    $countedArticles
+                );
+            }
+
+
         }
         catch (PDOException $ex)
         {
@@ -68,8 +85,8 @@ class ControllerTest
 
         $email = [];
         $email['subject'] = "Message de test";
-        $email['from'] = "no-reply@meli.co";
-        $email['from-name'] = "Meli.co";
+        $email['from'] = "no-reply@melico.fr";
+        $email['from-name'] = "Melico";
         $email['content'] = "Bonjour,<br /><br />Ceci est un message de test d'envoi d'e-mail.";
 
         $controllerEmail->init($email);

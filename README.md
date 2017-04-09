@@ -4,7 +4,7 @@ This french project gives you the advantages of generating your free Android app
 
 ## Getting Started
 
-The user justs need to download the zip from [original website](https://meli.co).
+The user justs need to download the zip from [original website](https://melico.fr).
 
 Supported engines are currently:
 
@@ -26,15 +26,33 @@ Be sure your servers are enabled.
 
 ```
 systemctl start httpd
-systemctl start mariadb / mysql
+systemctl start mariadb / mysqld
 ```
+
+## Production
+
+Upload project or ```git clone``` it to a direcoty in your web-server.
+
+
+### Security 
+
+```
+chown -R httpd:httpd /var/www/melico
+chmod -R 755  /var/www/melico
+chcon -R -t httpd_sys_rw_content_t /var/www/melico
+```
+
+### Apache deployment
+
+Just put the *unzipped file in a directoy* where a website pointed to.
+
 
 ## Running the tests
 
 If you want to test the application, in the project *launch the command*.
 
 ```
-php -S localhost:8080 -t public -ddisplay_errors=1
+php -S localhost:8080 -t . -ddisplay_errors=1
 ```
 
 Go to the **configuration web page**.

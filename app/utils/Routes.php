@@ -1,10 +1,9 @@
 <?php
 
-require "../app/controllers/ControllerTest.php";
+require "app/controllers/ControllerTest.php";
 
-
-require '../app/model/engine/WordPress.php';
-require '../app/model/engine/Joomla.php';
+require 'app/model/engine/WordPress.php';
+require 'app/model/engine/Joomla.php';
 
 /**
  * Redirect to the home page
@@ -57,7 +56,8 @@ $app->post('/android', function ($request, $response) {
         // construct the new url with encoded url strings to melico website
         $url = ';user=' . urlencode(Resources::$json['auth']['user']);
         $url .= ';pass=' . urlencode(Resources::$json['auth']['pass']);
-        $url .= ';url=' . urlencode(Resources::$json['website']['url']);
+        $url .= ';url=' . urlencode(str_replace('/', '|', $request->getUri()->getBaseUrl()));
+        // $url .= ';url=' . urlencode(Resources::$json['website']['url']);
         $url .= ';website=' . urlencode(Resources::$json['website']['name']);
         $url .= ';email=' . urlencode(Resources::$json['email']['contact']);
 

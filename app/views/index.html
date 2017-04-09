@@ -1,19 +1,15 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="{{ base_url() }}/resources/milligram.min.css" lazyload />
-    <link rel="stylesheet" href="{{ base_url() }}/resources/style.css" lazyload />
+    <link rel="stylesheet" href="{{ baseUrl }}/resources/milligram.min.css" lazyload />
+    <link rel="stylesheet" href="{{ baseUrl }}/resources/style.css" lazyload />
 </head>
 
 <body>
     {% include 'globals/header.html' %}
 
     <div class="container">
-        {% if post.auth %}
-            {% include 'blocks/config.html' %}
-        {% else %}
-            {% include 'blocks/auth.html' %} 
-        {% endif %}
+        {% if post.auth %} {% include 'blocks/config.html' %} {% else %} {% include 'blocks/auth.html' %} {% endif %}
     </div>
 
     {% include 'globals/footer.html' %}

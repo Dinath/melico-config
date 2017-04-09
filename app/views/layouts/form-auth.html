@@ -1,7 +1,7 @@
 <section class="authentification">
     {% if status.register %}
     <p>C'est la première fois que vous lancez le logiciel, vous devez vous créer un <strong>nom d'utilisateur</strong> et un <strong>mot de passe</strong>.</p>
-    <form action="/signin" method="POST">
+    <form action="signin" method="POST">
         <div class="form-group">
             <label for="auth-user">Nom d'utilisateur</label>
             <input type="text" required="true" placeholder="..." name="auth-user" class="form-control" id="auth-user" />
@@ -16,7 +16,7 @@
         </div>
     </form>
     {% else %}
-    <form action="/" method="POST">
+    <form action="" method="POST">
         <div class="form-group">
             <label for="auth-user">Nom d'utilisateur</label>
             <input type="text" required="true" placeholder="utilisateur" name="auth-user" class="form-control" id="auth-user" />

@@ -1,10 +1,10 @@
 <?php
 
-set_include_path(dirname(__FILE__)."/../");
+set_include_path(dirname(__FILE__));
 
-require '../vendor/autoload.php';
-require '../app/controllers/ControllerEmail.php';
-require '../app/utils/Resources.php';
+require 'vendor/autoload.php';
+require 'app/controllers/ControllerEmail.php';
+require 'app/utils/Resources.php';
 
 /**
  * Loading the json datas
@@ -48,12 +48,12 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
 /**
  * Contains all shared variables accross the application, instancied one time
  */
-require '../app/utils/Container.php';
+require 'app/utils/Container.php';
 
 /**
  * Provides routes for back and api for Android device
  */
-require '../app/utils/Routes.php';
+require 'app/utils/Routes.php';
 
 /**
  * Only allows get / post

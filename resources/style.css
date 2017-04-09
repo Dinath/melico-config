@@ -1,5 +1,3 @@
-
-
 html {
     box-sizing: border-box;
     font-size: 62.5%;
@@ -15,7 +13,7 @@ body {
 header {
     padding: 50px 0px;
     width: 100%;
-    background-color: #2a77ea;
+    background-image: linear-gradient(60deg, #00848e 0%, #50c9c3 100%);
     text-align: center;
 }
 
@@ -50,7 +48,6 @@ div.container {
     /*margin-bottom: 200px;*/
 }
 
-
 input[type="submit"] {
     margin-top: 20px;
 }
@@ -74,7 +71,6 @@ section.authentification {
         width: 30%;
         margin: auto;
     }
-
     footer {
         position: initial;
     }
@@ -89,15 +85,13 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 textarea {
-    color: #606c76;
+    color: lightslategray;
 }
 
-
-
 h3 {
-    /*border: 1px solid #2a77ea;*/
+    /*border: 1px solid #00848e;*/
     /*box-shadow: 0px 0px 10px 0px #e1e1e1;*/
-    color: #606c76;
+    color: #00848e;
     background-color: white;
     font-size: 3rem;
     text-align: center;
@@ -109,6 +103,12 @@ h4 {
     text-align: center;
     padding-bottom: 20px;
     margin-top: 50px;
+    color: gray;
+    font-weight: 300;
+}
+
+p {
+    color: gray;
 }
 
 label {
@@ -148,20 +148,19 @@ span.ok {
     font-size: 1.5rem;
 }
 
-
 span.ko {
     color: #E08283;
 }
 
 span.ok {
-    color: #8bc34a;
+    color: #00848e;
 }
 
-
-p.config-test > i {
+p.config-test>i {
     font-size: 1.5rem;
     vertical-align: middle;
 }
+
 p.config-test {
     margin-bottom: 5rem;
     text-align: center;
@@ -182,21 +181,20 @@ p.error {
     text-align: center;
 }
 
-
-
 img.logo {
     width: 80px;
 }
 
-
 .authentification input[type="submit"]:hover {
-    color: #606c76;
-    border-color: #606c76;
+    color: white;
+    border: none;
+    background-color: #0871A5;
 }
 
 .authentification input[type="submit"] {
     background: transparent;
-    color: #2a77ea;
+    color: #0871A5;
+    border: 1px solid #0871A5;
     width: 100%;
     padding: 2px 0px;
 }
@@ -205,14 +203,14 @@ footer {
     text-align: center;
     width: 100%;
     display: block;
-    padding:  15px 0px;
+    padding: 15px 0px;
 }
-
 
 footer form,
 footer input {
     margin: auto;
 }
+
 footer p {
     margin: 0px;
 }
@@ -225,7 +223,7 @@ button.btn-android img {
 button.btn-android {
     padding: 10px 15px;
     height: auto;
-    color: #8bc34a;
+    color: #00848e;
     background: transparent;
-    border: 1px solid #8bc34a;
+    border: 1px solid #00848e;
 }

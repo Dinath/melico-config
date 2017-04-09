@@ -81,7 +81,7 @@ class WordPress extends Template
             'SELECT COUNT(*) as :db_obj_count 
               FROM ' . Resources::$json['database']['table_prefix'] . 'posts' . ' 
               WHERE `post_type` = "post" 
-                AND post_status = "publish"'
+                AND `post_status` = "publish"'
         );
 
         return $statement;

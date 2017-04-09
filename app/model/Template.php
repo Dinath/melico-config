@@ -97,10 +97,25 @@ class Template
      * @return type
      *  The query returns
      */
-    private function __pdoExecuter($statement)
+    private function __pdoExecuter($statement, $test = false)
     {
         $statement = $this->__pdoLimiter($statement);
-        $statement->execute();
+
+        if ($test) 
+        {
+            $statement->execute();
+        }
+        else 
+        {
+            try 
+            {
+                $statement->execute();
+            }
+            catch (PDOException $ex)
+            {
+                return $ex->getMessage();
+            }
+        }
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -116,19 +131,25 @@ class Template
         if ($pdo === NULL) {
             die("Cannot connect to database.");
         }
+        else {
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        }
     }
 
     /**
      *  This function IS NOT implemented in child classes.
+     *
+     *  You can use it to test your brand new Engine class
      */
-    protected function test($pdo)
+    public function test($pdo)
     {
         try {
-            $this->articlesFind($pdo, "test");
-            $this->articles($pdo, 10);
-            $this->articlesCount($pdo);
+            $this->findArticlesByContentInTitle($pdo, "test", true);
+            $this->findArticlesUsingPagination($pdo, 10, true);
+            $this->countArticles($pdo, true);
         } catch (Exception $ex) {
-            die($ex);
+            die('<h1>An exception happened in your engine\'s class</h1>' . $ex);
         }
     }
 
@@ -139,16 +160,18 @@ class Template
      *  The pdo access to the database
      * @param $text
      *  The text to look for
+     * @param
+     *  A test to throw exception if append
      */
-    public function findArticlesByContentInTitle($pdo, $text)
+    public function findArticlesByContentInTitle($pdo, $text, $test = false)
     {
-        $this->__check($pdo);
+        $pdo = $this->__check($pdo);
 
         $statement = $this->articlesFind($pdo, $text);
         $statement = $this->__binderForArticle($statement);
         $statement->bindValue(':text', '%' . $text . '%', PDO::PARAM_STR);
 
-        return $this->__pdoExecuter($statement);
+        return $this->__pdoExecuter($statement, $test);
     }
 
     /**
@@ -160,18 +183,20 @@ class Template
      *  The pdo access to the database
      * @param $index
      *  The index where the pagination should start :
+     * @param
+     *  A test to throw exception if append
      *
      *  $index = 0 will let the function match 0,10 range
      */
-    public function findArticlesUsingPagination($pdo, $index)
+    public function findArticlesUsingPagination($pdo, $index, $test = false)
     {
-        $this->__check($pdo);
+        $pdo = $this->__check($pdo);
 
         $statement = $this->articles($pdo, $index);
         $statement = $this->__binderForArticle($statement);
         $statement->bindValue(':pagination', (int) $index, PDO::PARAM_INT);
 
-        return $this->__pdoExecuter($statement);
+        return $this->__pdoExecuter($statement, $test);
     }
 
     /**
@@ -179,16 +204,18 @@ class Template
      *
      * @param $pdo
      *  The pdo access to the database
+     * @param
+     *  A test to throw exception if append
      */
-    public function countArticles($pdo)
+    public function countArticles($pdo, $test = false)
     {
-        $this->__check($pdo);
+        $pdo = $this->__check($pdo);
 
         $statement = $this->articlesCount($pdo);
         $statement->bindValue(':db_obj_count', 'count', PDO::PARAM_STR);
         $statement = $this->__pdoLimiter($statement, 1);
 
-        return $this->__pdoExecuter($statement);
+        return $this->__pdoExecuter($statement, $test);
     }
 
     /**
